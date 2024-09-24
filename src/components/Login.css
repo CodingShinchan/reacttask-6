@@ -1,0 +1,115 @@
+/* Login page styles */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    padding: 1.5rem;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  .login-box {
+    max-width: 400px;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+    padding: 2.5rem;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+  }
+  
+  .login-box:hover {
+    transform: scale(1);
+  }
+  
+  .login-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #4f46e5;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  
+  .login-title::after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 4px;
+    background-color: #4f46e5;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+  }
+  
+  .input-container {
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    background-color: #f9fafb;
+    outline: none;
+    transition: all 0.4s ease;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  .input-field:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.3), 0 0 5px rgba(99, 102, 241, 0.5);
+  }
+  
+  .login-btn {
+    width: 100%;
+    background-color: #6366f1;
+    color: #fff;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .login-btn:hover {
+    background: linear-gradient(135deg, #5a67d8, #764ba2);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+    transform: translateY(-3px);
+  }
+  
+  .signup-link {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+  
+  .signup-text {
+    color: #6366f1;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .signup-text:hover {
+    color: #4f46e5;
+    text-decoration: underline;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }  
