@@ -10,7 +10,7 @@ import {
 import { db } from "../firebase";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import './TodoList.css';
+import "./TodoList.css"; // Import the CSS
 
 const TodoList = () => {
   const [todoLists, setTodoLists] = useState([]);
@@ -21,7 +21,6 @@ const TodoList = () => {
   const auth = getAuth();
   const navigate = useNavigate();
 
-  // Fetch To-Do lists
   const fetchTodoLists = async (user) => {
     if (user) {
       try {
@@ -51,7 +50,6 @@ const TodoList = () => {
     }
   };
 
-  // Add a new To-Do List
   const addTodoList = async () => {
     const user = getAuth().currentUser;
     if (newListName.trim() && user) {
@@ -69,7 +67,6 @@ const TodoList = () => {
     }
   };
 
-  // Handle input change for tasks
   const handleTaskInputChange = (listId, field, value) => {
     setTaskInputs((prev) => ({
       ...prev,
@@ -77,7 +74,6 @@ const TodoList = () => {
     }));
   };
 
-  // Add a new task
   const addTask = async (listId) => {
     const user = getAuth().currentUser;
     const newTask = taskInputs[listId];
@@ -107,7 +103,6 @@ const TodoList = () => {
     }
   };
 
-  // Update task priority
   const updateTaskPriority = async (listId, taskId, newPriority) => {
     const user = getAuth().currentUser;
     if (user) {
@@ -118,14 +113,13 @@ const TodoList = () => {
           taskId
         );
         await updateDoc(taskRef, { priority: newPriority });
-        fetchTodoLists(user); // Refresh the data
+        fetchTodoLists(user);
       } catch (error) {
         console.error("Error updating task priority: ", error);
       }
     }
   };
 
-  // Move a task to a different list
   const moveTaskToAnotherList = async (
     fromListId,
     toListId,
@@ -135,7 +129,6 @@ const TodoList = () => {
     const user = getAuth().currentUser;
     if (user) {
       try {
-        // Add the task to the new list
         const newTaskData = { ...task, priority: newPriority };
         delete newTaskData.id;
         await addDoc(
@@ -143,12 +136,10 @@ const TodoList = () => {
           newTaskData
         );
 
-        // Remove the task from the old list
         await deleteDoc(
           doc(db, `users/${user.uid}/todoLists/${fromListId}/tasks`, task.id)
         );
 
-        // Immediately update UI without fetching data again
         setTodoLists((prev) =>
           prev.map((list) =>
             list.id === fromListId
@@ -170,7 +161,6 @@ const TodoList = () => {
     }
   };
 
-  // Handle logout
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -180,7 +170,6 @@ const TodoList = () => {
     }
   };
 
-  // Drag and drop for moving tasks between lists or updating priority
   const handleDragStart = (task, fromListId) => {
     setDraggedTask({ ...task, fromListId });
   };
@@ -192,10 +181,8 @@ const TodoList = () => {
 
       if (newPriority) {
         if (isSameList) {
-          // Update priority within the same list
           await updateTaskPriority(fromListId, draggedTask.id, newPriority);
         } else {
-          // Move task to a different list and update its priority
           await moveTaskToAnotherList(
             fromListId,
             toListId,
@@ -218,6 +205,7 @@ const TodoList = () => {
       window.scrollBy(0, scrollStep);
     }
   };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -231,47 +219,34 @@ const TodoList = () => {
 
   return (
     <div
-      className="todo-container"
+      className="todo-list-container"
       onDragOver={handleScrollOnDrag}
     >
-      <div className="todo-content">
+      <div className="todo-app-wrapper">
         <div className="header">
-          <h2 className="title">To-Do App</h2>
-          <button
-            onClick={handleLogout}
-            className="logout-btn"
-          >
-            Logout
-          </button>
+          <h2>To-Do App</h2>
+          <button onClick={handleLogout}>Logout</button>
         </div>
 
-        <div className="new-list-section">
+        <div className="new-list-input">
           <input
             type="text"
             value={newListName}
             onChange={(e) => setNewListName(e.target.value)}
-            className="input-field"
             placeholder="Create new To-Do List"
           />
-          <button
-            onClick={addTodoList}
-            className="add-list-btn"
-          >
-            Add List
-          </button>
+          <button onClick={addTodoList}>Add List</button>
         </div>
 
-        <div className="todo-grid">
+        <div className="todo-lists-grid">
           {todoLists.map((list) => (
             <div
               key={list.id}
-              className="todo-list"
+              className="todo-list-card"
               onDragOver={(e) => e.preventDefault()}
               onDrop={() => handleDrop(list.id)}
             >
-              <h3 className="list-title">
-                {list.name}
-              </h3>
+              <h3>{list.name}</h3>
 
               <div className="task-inputs">
                 <input
@@ -280,7 +255,6 @@ const TodoList = () => {
                   onChange={(e) =>
                     handleTaskInputChange(list.id, "title", e.target.value)
                   }
-                  className="task-input"
                   placeholder="Task Title"
                 />
                 <input
@@ -293,7 +267,6 @@ const TodoList = () => {
                       e.target.value
                     )
                   }
-                  className="task-input"
                   placeholder="Task Description"
                 />
                 <input
@@ -302,25 +275,18 @@ const TodoList = () => {
                   onChange={(e) =>
                     handleTaskInputChange(list.id, "dueDate", e.target.value)
                   }
-                  className="task-input"
                 />
                 <select
                   value={taskInputs[list.id]?.priority || "low"}
                   onChange={(e) =>
                     handleTaskInputChange(list.id, "priority", e.target.value)
                   }
-                  className="task-input"
                 >
                   <option value="low">Low</option>
                   <option value="medium">Medium</option>
                   <option value="high">High</option>
                 </select>
-                <button
-                  onClick={() => addTask(list.id)}
-                  className="add-task-btn"
-                >
-                  Add Task
-                </button>
+                <button onClick={() => addTask(list.id)}>Add Task</button>
               </div>
 
               {["low", "medium", "high"].map((priority) => (
@@ -328,9 +294,9 @@ const TodoList = () => {
                   key={priority}
                   onDrop={() => handleDrop(list.id, priority)}
                   onDragOver={(e) => e.preventDefault()}
-                  className="priority-section"
+                  className={`task-priority-${priority}`}
                 >
-                  <h4 className="priority-title">{priority} priority</h4>
+                  <h4>{priority} Priority</h4>
                   {list.tasks
                     .filter((task) => task.priority === priority)
                     .map((task) => (
@@ -338,11 +304,12 @@ const TodoList = () => {
                         key={task.id}
                         draggable
                         onDragStart={() => handleDragStart(task, list.id)}
-                        className="task-item"
+                        className="task-card"
                       >
-                        <h5 className="task-title">{task.title}</h5>
-                        <p className="task-desc">{task.description}</p>
-                        <p className="task-due">{task.dueDate}</p>
+                        <p className="task-title">{task.title}</p>
+                        <p className="task-description">{task.description}</p>
+                        <p className="task-dueDate">{task.dueDate}</p>
+                        <p className="task-priority">{task.priority}</p>
                       </div>
                     ))}
                 </div>
