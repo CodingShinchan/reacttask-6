@@ -1,124 +1,142 @@
-.todo-container {
-    padding: 20px;
+/* General Styles */
+.todo-list-container {
+  padding: 20px;
+  background-color: #f0f0f0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.todo-app-wrapper {
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.new-list-input {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.new-list-input input {
+  width: 80%;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.new-list-input button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.new-list-input button:hover {
+  background-color: #45a049;
+}
+
+/* To-Do Lists Grid */
+.todo-lists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.todo-list-card {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.todo-list-card h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.task-inputs input,
+.task-inputs select,
+.task-inputs button {
+  width: 100%;
+  margin: 5px 0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.task-inputs button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.task-inputs button:hover {
+  background-color: #45a049;
+}
+
+/* Task Priorities */
+.task-priority-low,
+.task-priority-medium,
+.task-priority-high {
+  margin-top: 20px;
+}
+
+.task-priority-low {
+  background-color: #f9f9f9;
+}
+
+.task-priority-medium {
+  background-color: #fff5cc;
+}
+
+.task-priority-high {
+  background-color: #ffcccc;
+}
+
+/* Task Card */
+.task-card {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 10px 0;
+  cursor: move;
+  transition: background-color 0.3s;
+}
+
+.task-card:hover {
+  background-color: #e0e0e0;
+}
+
+.task-title {
+  font-weight: bold;
+}
+
+.task-description,
+.task-dueDate,
+.task-priority {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .todo-app-wrapper {
+    width: 95%;
   }
-  
-  .todo-content {
-    max-width: 1200px;
-    margin: 0 auto;
+
+  .todo-lists-grid {
+    grid-template-columns: 1fr;
   }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .title {
-    font-size: 24px;
-  }
-  
-  .logout-btn {
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .new-list-section {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .input-field {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .add-list-btn {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .todo-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  
-  .todo-list {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 15px;
-  }
-  
-  .list-title {
-    font-size: 20px;
-    margin-bottom: 15px;
-    text-align: center;
-  }
-  
-  .task-inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .task-input {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  .add-task-btn {
-    background-color: #00aaff;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .priority-section {
-    margin-top: 20px;
-  }
-  
-  .priority-title {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .task-item {
-    background-color: #e0f7fa;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    cursor: grab;
-  }
-  
-  .task-item:active {
-    cursor: grabbing;
-  }
-  
-  .task-title {
-    font-weight: bold;
-  }
-  
-  .task-desc {
-    margin: 5px 0;
-  }
-  
-  .task-due {
-    font-size: 12px;
-    color: #888;
-  }
+}
