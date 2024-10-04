@@ -3,7 +3,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 import { app } from "../firebase";
 import { useNavigate } from "react-router-dom";
-import './Signup.css';  // Import the CSS file
+import './Signup.css'; // Import the CSS file
 
 const auth = getAuth(app);
 
@@ -15,7 +15,7 @@ const Signup = () => {
   const handleSignup = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      alert("User signed up successfully! 🎉");
+      alert("User signed up");
       navigate("/login");
     } catch (error) {
       console.error("Error signing up: ", error.message);
@@ -27,7 +27,7 @@ const Signup = () => {
     <div className="signup-container">
       <div className="signup-box">
         <h2 className="signup-title">Sign Up</h2>
-        <div className="input-container">
+        <div className="input-group">
           <input
             type="email"
             placeholder="Email"
@@ -36,7 +36,7 @@ const Signup = () => {
             className="input-field"
           />
         </div>
-        <div className="input-container">
+        <div className="input-group">
           <input
             type="password"
             placeholder="Password"
@@ -47,14 +47,19 @@ const Signup = () => {
         </div>
         <button
           onClick={handleSignup}
-          className="signup-btn"
+          className="signup-button"
         >
           Sign Up
         </button>
-        <div className="login-link">
+        <div className="login-text">
           <p>
             Already signed up?{" "}
-            <a href="/login" className="login-text">Log In</a>
+            <a
+              href="/login"
+              className="login-link"
+            >
+              Log in
+            </a>
           </p>
         </div>
       </div>
